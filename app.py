@@ -211,6 +211,5 @@ def dataImport():
         else:
             return render_template("segmentationcsvOutput.html",data = "Unsupported File Type")
 
-port = int(os.environ.get('PORT', 5000))
 
-app.run(host='0.0.0.0', port=port, debug=True)
+app.run(debug=True)
