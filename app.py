@@ -11,9 +11,7 @@ decisionTree_model=pickle.load(open('Decision_Tree.pkl','rb'))
 gradientBoost_model=pickle.load(open('Decision_Tree.pkl','rb'))
 
 app = Flask(__name__)
-# @app.route('/')
-# def helloworld():
-#     return "Hello world"
+
 
 @app.route('/')
 def home():
@@ -211,6 +209,6 @@ def dataImport():
         else:
             return render_template("segmentationcsvOutput.html",data = "Unsupported File Type")
 
-port = int(os.environ.get('PORT', 5000))
 
-app.run(host='0.0.0.0', port=port, debug=True)
+
+app.run(debug=True)
