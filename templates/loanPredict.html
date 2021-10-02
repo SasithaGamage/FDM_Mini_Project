@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        label{
+            text-align: center;
+            color: white;
+        }
+        body{
+          /* background-image:linear-gradient(to right, rgba(25, 181, 254, 1), rgba(165, 55, 253, 1));; */
+          align-items: center; 
+          justify-content: center; 
+          height: 100vh; 
+          background: #060c21; 
+          font-family: Arial, Helvetica, sans-serif; 
+          color: #fff;}
+        .formbackMain{ position: relative; width: 60%; height:min-content; display: flex; justify-content: center; align-content: center; background: #060c21; padding:25px; margin-left: auto; margin-right: auto; margin-top: 20px;} 
+        .formbackMain::before{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; background: #fff; z-index: -1;}
+        .formbackMain::after{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; background: #fff; z-index: -1; filter: blur(40px);}
+        .formbackMain::before, .formbackMain::after{ background: linear-gradient(235deg, #89ff00, #060c21, #00bcd4);}
+        h1{ margin-bottom: 10px;}
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Prediction App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Loan Prediction <span class="sr-only">(current)</span></a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li> -->
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer Segmentation
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/segmentPage">Single input</a>
+          <a class="dropdown-item" href="/dataUpload">CSV Import</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<div class = "formbackMain" align = "center" style = "margin-top: 100px;">
+    <div class = "formBackground" style="width:100%; height:80%" >
+    <!-- style="background-color:rgba(89, 171, 227, 1); width:60%; height:85%; border-radius:20px;border-width:5px;border-color: rgba(31, 58, 147, 1);border-style: inset;"> -->
+        <form action = "http://127.0.0.1:5000/loanPredict" method = "post">
+          <div class="form-group col-md-4" style = "margin-top: 20px;">
+            <label><strong>Prediction Model</strong></label><br>
+            <select name="predictionModel" class="form-control">
+                <option value="knn"><Strong>K-Nearest Neighbour</Strong></option>
+                <option value="randomForest"><Strong>Random Forest</Strong></option>
+                <option value="decisionTree"><Strong>Decision Tree</Strong></option>
+                <option value="gradientBoost"><Strong>Gradient Boost</Strong></option>
+            </select>
+          </div>
+          <br>
+
+            <div class="form-group col-md-4">
+                <label class="form-label"><strong>Income</strong></label>
+                <input type="number" class="form-control" name = "income">
+            </div>
+            <br>
+
+            <div class="form-group col-md-4">
+                <label class="form-label"><strong>Age</strong></label>
+                <input type="number" class="form-control" name = "age">
+            </div>
+            <br>
+            <div class="form-group col-md-4">
+                <label class="form-label"><strong>Experience</strong></label>
+                <input type="number" class="form-control" name = "experience">
+                
+            </div>
+            <br>
+            
+              <div class="form-group col-md-4">
+                <label><strong>Marital Status</strong></label><br>
+                <select name = "maritalStatus" class="form-control">
+                    <option value="single">single</option>
+                    <option value="maried">maried</option>
+                </select>
+              </div>
+              <br>
+              
+              <div class="form-group col-md-4">
+                <label><strong>House ownership</strong></label><br>
+              <select name = "houseowner" class="form-control">
+                  <option value="rented">Rented</option>
+                  <option value="norent_noown">Not rented</option>
+                  <option value="owned">Owned</option>
+              </select>
+              </div>
+              <br>
+              <div class="form-group col-md-4">
+                <label><strong>Car ownership</strong></label><br>
+              <select name = "carowner" class="form-control">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+              </select>
+              </div>
+              <br>
+
+              <div class="form-group col-md-4">
+                <label><strong>Profession</strong></label><br>
+                <select name ="profession" class="form-control">
+                        <option value="Mechanical_engineer">Mechanical_engineer</option>
+                        <option value="Software_Developer">Software_Developer</option>
+                        <option value="Technical_writer">Technical_writer</option>
+                        <option value="Civil_servant">Civil_servant</option>
+                        <option value="Librarian">Librarian</option>
+                        <option value="Economist">Economist</option>
+                        <option value="Flight_attendant">Flight_attendant</option>
+                        <option value="Architect">Architect</option>
+                        <option value="Designer">Designer</option>
+                        <option value="Physician">Physician</option>
+                        <option value="Financial_Analyst">Financial_Analyst</option>
+                        <option value="Air_traffic_controller">Air_traffic_controller</option>
+                        <option value="Politician">Politician</option>
+                        <option value="Police_officer">Police_officer</option>
+                        <option value="Artist">Artist</option>
+                        <option value="Surveyor">Surveyor</option>
+                        <option value="Design_Engineer">Design_Engineer</option>
+                        <option value="Chemical_engineer">Chemical_engineer</option>
+                        <option value="Hotel_Manager">Hotel_Manager</option>
+                        <option value="Dentist">Dentist</option>
+                        <option value="Comedian">Comedian</option>
+                        <option value="Biomedical_Engineer">Biomedical_Engineer</option>
+                        <option value="Graphic_Designer">Graphic_Designer</option>
+                        <option value="Computer_hardware_engineer">Computer_hardware_engineer</option>
+                        <option value="Petroleum_Engineer">Petroleum_Engineer</option>
+                        <option value="Secretary">Secretary</option>
+                        <option value="Computer_operator">Computer_operator</option>
+                        <option value="Chartered_Accountant">Chartered_Accountant</option>
+                        <option value="Technician">Technician</option>
+                        <option value="Microbiologist">Microbiologist</option>
+                        <option value="Fashion_Designer">Fashion_Designer</option>
+                        <option value="Aviator">Aviator</option>
+                        <option value="Psychologist">Psychologist</option>
+                        <option value="Magistrate">Magistrate</option>
+                        <option value="Lawyer">Lawyer</option>
+                        <option value="Firefighter">Firefighter</option>
+                        <option value="Engineer">Engineer</option>
+                        <option value="Official">Official</option>
+                        <option value="Analyst">Analyst</option>
+                        <option value="Geologist">Geologist</option>
+                        <option value="Drafter">Drafter</option>
+                        <option value="Statistician">Statistician</option>
+                        <option value="Web_designer">Web_designer</option>
+                        <option value="Consultant">Consultant</option>
+                        <option value="Chef">Chef</option>
+                        <option value="Army_officer">Army_officer</option>
+                        <option value="Surgeon">Surgeon</option>
+                        <option value="Scientist">Scientist</option>
+                        <option value="Civil_engineer">Civil_engineer</option>
+                        <option value="Industrial_Engineer">Industrial_Engineer</option>
+                        <option value="Technology_specialist">Technology_specialist</option>
+
+                </select>
+              </div>
+              <br>
+
+              <div class="form-group col-md-4">
+                <label><strong>State</strong></label><br>
+                <select name ="state" class="form-control">
+                        <option value="Madhya_Pradesh">Madhya_Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Tamil_Nadu">Tamil_Nadu</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Andhra_Pradesh">Andhra_Pradesh</option>
+                        <option value="West_Bengal">West_Bengal</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Uttar_Pradesh">Uttar_Pradesh</option>
+                        <option value="Himachal_Pradesh">Himachal_Pradesh</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Jammu_and_Kashmir">Jammu_and_Kashmir</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Uttar_Pradesh[5]">Uttar_Pradesh[5]</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Sikkim">Sikkim</option>
+
+                </select>
+              </div>
+              <br>
+              <div class="form-group col-md-4">
+                <label class="form-label"><strong>CURRENT_JOB_YRS</strong></label>
+                <input type="number" class="form-control" name = "jobYears">
+                
+              </div>
+              <br>
+              <br>
+              <div class="form-group col-md-4">
+                <label class="form-label"><strong>CURRENT_HOUSE_YRS</strong></label>
+                <input type="number" class="form-control" name = "houseYears">
+                
+              </div>
+
+
+            <button type="submit" class="btn btn-primary" margin-left = "20px" style = "margin-bottom : 20px">Submit</button>
+          </form>
+          </div>
+    </div>
+    <div style="margin-top: 20px;"><h6>Classification Prediction</h1></div>
+</body>
+</html>
