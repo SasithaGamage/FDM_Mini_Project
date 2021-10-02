@@ -82,8 +82,8 @@
               </div>
               <br>
               <div class="form-group col-md-4">
-                <label for="exampleInputEmail1" class="form-label"><strong>Age</strong></label>
-                <input type="number" name = "age" class="form-control" id="age">
+                <label for="age" class="form-label"><strong>Age</strong></label>
+                <input type="number" name = "age" min = 16 max = 80 class="form-control" id="age" required>
 
             </div>
             <br>
@@ -110,14 +110,14 @@
                 </select>
               </div>
               <div class="form-group col-md-4">
-                <label for="exampleInputEmail1" class="form-label"><strong>Income</strong></label>
-                <input name = "income"type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="income" class="form-label"><strong>Income</strong></label>
+                <input name = "income"type="number" class="form-control" min = 1 id="exampleInputEmail1" aria-describedby="emailHelp" required>
             </div>
             <br>
             
             <div class="form-group col-md-4">
-                <label for="exampleInputEmail1" class="form-label"><strong>Work Experience</strong></label>
-                <input type="number" name = "experience" class="form-control" id="experience">
+                <label for="experience" class="form-label"><strong>Work Experience</strong></label>
+                <input type="number" name = "experience" class="form-control" id="experience" required>
 
             </div>
             <br>
@@ -130,8 +130,8 @@
                 </select>
               </div>
               <div class="form-group col-md-4">
-                <label for="exampleInputEmail1" class="form-label"><strong>Family Size</strong></label>
-                <input type="number" class="form-control" id="familySize" name = "familySize">
+                <label for="familySize" class="form-label"><strong>Family Size</strong></label>
+                <input type="number" class="form-control" id="familySize" min = 1 name = "familySize" required>
             </div>
             <br>
             <button type="submit" class="btn btn-primary" margin-left = "20px" style = "margin-bottom: 20px;">Submit</button>

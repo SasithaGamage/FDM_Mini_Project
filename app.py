@@ -7,7 +7,6 @@ import os
 
 kmeans_model=pickle.load(open('FDM_kmeans.pkl','rb'))
 knn_model=pickle.load(open('KNN.pkl','rb'))
-randomForest_model=pickle.load(open('Random_Forest.pkl','rb'))
 decisionTree_model=pickle.load(open('Decision_Tree.pkl','rb'))
 gradientBoost_model=pickle.load(open('Decision_Tree.pkl','rb'))
 
@@ -146,14 +145,6 @@ def loanPredict():
         else:
             str = "Not Risky"
         resultDict={"str":str,"Model":"K-Nearest-Neighbours"}
-        return render_template('LoanPredictionResults.html',results = resultDict)
-    elif(predictionModel == 'randomForest'):
-        randomforestPredict = randomForest_model.predict(test)
-        if randomforestPredict == 0:
-            str = "Risky"
-        else:
-            str = "Not Risky"
-        resultDict={"str":str,"Model":"Random Forest"}
         return render_template('LoanPredictionResults.html',results = resultDict)
     elif(predictionModel == 'decisionTree'):
         decisionTreePredict = decisionTree_model.predict(test)

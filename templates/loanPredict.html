@@ -28,6 +28,29 @@
 </head>
 
 <body>
+  <script>
+    const income = document.getElementById('income')
+    const age = document.getElementById('age')
+    const experience = document.getElementById('experience')
+    const jobYears = document.getElementById('jobYears')
+    const houseYears = document.getElementById('houseYears')
+    const errorElement = document.getElementById('error')
+    const form = document.getElementById('form')
+
+    form.addEventListener('submit', (e) => {
+      let messages = []
+      if (income.value === '' || name.value == null){
+        messages.push("Income is Required");
+      }
+      if(messages.length > 0){
+        e.preventDefault()
+        errorElement.innerText = messages.join(', ');
+      }
+    })
+
+
+
+  </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -55,7 +78,7 @@
         </div>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" id = "form">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -69,7 +92,6 @@
             <label><strong>Prediction Model</strong></label><br>
             <select name="predictionModel" class="form-control">
                 <option value="knn"><Strong>K-Nearest Neighbour</Strong></option>
-                <option value="randomForest"><Strong>Random Forest</Strong></option>
                 <option value="decisionTree"><Strong>Decision Tree</Strong></option>
                 <option value="gradientBoost"><Strong>Gradient Boost</Strong></option>
             </select>
@@ -78,22 +100,21 @@
 
             <div class="form-group col-md-4">
                 <label class="form-label"><strong>Income</strong></label>
-                <input type="number" class="form-control" name = "income">
+                <input type="number" class="form-control" min = 1 name = "income" id = "income" required>
             </div>
+            <div id = "error" style = "color: aqua;"></div>
             <br>
 
             <div class="form-group col-md-4">
                 <label class="form-label"><strong>Age</strong></label>
-                <input type="number" class="form-control" name = "age">
+                <input type="number" class="form-control" min = 16 max = 80 name = "age" required>
             </div>
             <br>
             <div class="form-group col-md-4">
                 <label class="form-label"><strong>Experience</strong></label>
-                <input type="number" class="form-control" name = "experience">
-                
+                <input type="number" class="form-control" name = "experience" id = "experience" required>
             </div>
             <br>
-            
               <div class="form-group col-md-4">
                 <label><strong>Marital Status</strong></label><br>
                 <select name = "maritalStatus" class="form-control">
@@ -102,7 +123,6 @@
                 </select>
               </div>
               <br>
-              
               <div class="form-group col-md-4">
                 <label><strong>House ownership</strong></label><br>
               <select name = "houseowner" class="form-control">
@@ -179,7 +199,6 @@
                 </select>
               </div>
               <br>
-
               <div class="form-group col-md-4">
                 <label><strong>State</strong></label><br>
                 <select name ="state" class="form-control">
@@ -218,15 +237,13 @@
               <br>
               <div class="form-group col-md-4">
                 <label class="form-label"><strong>CURRENT_JOB_YRS</strong></label>
-                <input type="number" class="form-control" name = "jobYears">
-                
+                <input type="number" class="form-control" min = 0 name = "jobYears" id = "jobYears" required>
               </div>
               <br>
               <br>
               <div class="form-group col-md-4">
                 <label class="form-label"><strong>CURRENT_HOUSE_YRS</strong></label>
-                <input type="number" class="form-control" name = "houseYears">
-                
+                <input type="number" class="form-control" min = 0 name = "houseYears" id = "houseYears" required>
               </div>
 
 
