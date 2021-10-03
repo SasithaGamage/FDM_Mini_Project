@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import os
+import csv
 
 
 kmeans_model=pickle.load(open('FDM_kmeans.pkl','rb'))
