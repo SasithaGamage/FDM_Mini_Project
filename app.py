@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,send_file
 import pickle
 import numpy as np
 import pandas as pd
@@ -11,9 +11,7 @@ decisionTree_model=pickle.load(open('Decision_Tree.pkl','rb'))
 gradientBoost_model=pickle.load(open('Decision_Tree.pkl','rb'))
 
 app = Flask(__name__)
-# @app.route('/')
-# def helloworld():
-#     return "Hello world"
+
 
 @app.route('/')
 def home():
@@ -184,10 +182,53 @@ def preProcess(data):
 
     return data2
 
+
+# pre processing function dataexport2
+def encoding(data1):
+
+    genderEncode = {0:'Male', 1:'Female'}
+    data1.Gender = data1.Gender.map(genderEncode)
+
+    MarriedEncode = {0:'No', 1:'Yes'}
+    data1.Ever_Married = data1.Ever_Married.map(MarriedEncode)
+
+    GraduatedEncode = {0:'No', 1:'Yes'}
+    data1.Graduated = data1.Graduated.map(GraduatedEncode)
+
+    Spending_ScoreEncode = {1:'Low', 2:'Average', 3:'High'}
+    data1.Spending_Score = data1.Spending_Score.map(Spending_ScoreEncode)
+
+    ProfessionEncode = {1:'Healthcare', 2:'Engineer', 3:'Lawyer', 4:'Entertainment', 5:'Artist', 6:'Executive', 7:'Doctor', 8:'Homemaker', 9:'Marketing'}
+    data1.Profession = data1.Profession.map(ProfessionEncode)
+
+    Cluster = {0:'Luxury', 1:'family', 2:'Mid-Range',3:'Budget'}
+    data1.cluster_number = data1.cluster_number.map(Cluster)
+
+
+    return data1
+
+#---------------------------------------------------
+
 def createDf(df,prediction):
-    df['cluster number'] = prediction
+    df['cluster_number'] = prediction
     newDf = df
     return newDf
+
+
+@app.route('/download')
+def download_file():
+	#path = "html2pdf.pdf"
+	path = "output.csv"
+	# path = "simple.docx"
+	#path = "sample.txt"
+	return send_file(path, as_attachment=True)
+
+def addIDColumn(data,df1):
+    data1 = data.drop(["Var_1"],axis = 1)
+    data2=data1.dropna(axis = 0)
+    data3 = data2['ID']
+    df1.insert(0, 'ID', data3)
+    return df1
 
 @app.route('/dataImport',methods=['GET','POST'])
 def dataImport():
@@ -199,18 +240,24 @@ def dataImport():
             test = preProcess(data)
             prediction = kmeans_model.predict(test)
             df = createDf(test,prediction)
-            df.to_excel("output.xlsx")
-            return render_template("segmentationcsvOutput.html",data = df.to_html())
+            df1 = encoding(df)
+            df2 = addIDColumn(data,df1)
+            download_file()
+            return render_template("segmentationcsvOutput.html",data = df2.to_html())
         elif (ext == 'csv'):
             data = pd.read_csv(file)
             test = preProcess(data)
             prediction = kmeans_model.predict(test)
             df = createDf(test,prediction)
-            df.to_csv("output.csv")
-            return render_template("segmentationcsvOutput.html",data = df.to_html())
+            df1 = encoding(df)
+            df2 = addIDColumn(data,df1)
+            download_file()
+            return render_template("segmentationcsvOutput.html",data = df2.to_html())
         else:
             return render_template("segmentationcsvOutput.html",data = "Unsupported File Type")
 
 
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
